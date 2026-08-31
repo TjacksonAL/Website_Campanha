@@ -107,6 +107,11 @@ header.top{
   display:flex; align-items:center; justify-content:space-between; gap:12px;
 }
 .banner-inner b{color:var(--warn); font-weight:600;}
+.banner-inner.info{
+  background:linear-gradient(90deg, color-mix(in srgb, var(--accent-2) 14%, var(--surface)), var(--surface));
+  border:1px solid color-mix(in srgb, var(--accent-2) 35%, var(--border));
+}
+.banner-inner.info b{color:var(--accent-2);}
 .banner-close{ background:none; border:none; color:var(--text-faint); font-size:16px; }
 
 main{max-width:1360px; margin:0 auto; padding:22px 24px 0;}
@@ -304,6 +309,13 @@ footer{max-width:1360px; margin:30px auto 0; padding:20px 24px; border-top:1px s
   </div>
 </header>
 
+<div class="banner" id="bannerWrap0">
+  <div class="banner-inner info">
+    <span><b>Base de dados:</b> os dados utilizados para criação das análises são referentes à eleição de 2022. Servirão como base para tomadas de decisões.</span>
+    <button class="banner-close" id="bannerClose0">✕</button>
+  </div>
+</div>
+
 <div class="banner" id="bannerWrap">
   <div class="banner-inner">
     <span><b>Aviso de cobertura:</b> os dados de bairro em Maceió cobrem apenas as zonas eleitorais 1ª, 2ª e 3ª (≈65% do eleitorado da capital) — fonte oficial TRE-AL. <button data-action="faq" style="background:none;border:none;color:var(--accent); text-decoration:underline; cursor:pointer; font-size:13px; padding:0;">Saiba mais</button></span>
@@ -470,6 +482,7 @@ footer{max-width:1360px; margin:30px auto 0; padding:20px 24px; border-top:1px s
 <footer>
   <span>Fonte: TSE / TRE-AL — Portal de Dados Abertos, Eleições Gerais 2022. Bairros de Maceió identificados via Relatório de Locais de Votação (zonas 1ª–3ª).</span>
   <span>Painel preparado para a campanha · dados públicos</span>
+  <span>©2026 Thulio Jackson. Todos os direitos reservados</span>
 </footer>
 
 <div class="modal-back" id="modalFaq">
@@ -506,6 +519,7 @@ function setupMenu(btnId, menuId){
 setupMenu('dlBtn','dlMenu'); setupMenu('toolsBtn','toolsMenu');
 document.addEventListener('click',()=>document.querySelectorAll('.menu-pop').forEach(m=>m.classList.remove('open')));
 document.getElementById('bannerClose').addEventListener('click',()=>document.getElementById('bannerWrap').style.display='none');
+document.getElementById('bannerClose0').addEventListener('click',()=>document.getElementById('bannerWrap0').style.display='none');
 
 /* ================= TOAST ================= */
 function toast(msg){
