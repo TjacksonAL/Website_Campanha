@@ -197,10 +197,13 @@ main{max-width:1360px; margin:0 auto; padding:22px 24px 0;}
 }
 .mini-select:focus, #fBairroDetalhe:focus{outline:none; border-color:var(--accent);}
 .info-btn{
-  width:20px; height:20px; border-radius:50%; border:1px solid var(--border); background:var(--surface-2);
-  color:var(--text-faint); font-size:11px; font-weight:700; flex:none; position:relative;
+  width:22px; height:22px; border-radius:50%; border:1px solid var(--accent); background:rgba(0,229,176,0.14);
+  color:var(--accent); font-size:12px; font-weight:800; font-style:normal; flex:none; position:relative;
+  display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:background .15s, transform .15s, box-shadow .15s;
+  box-shadow:0 0 0 3px rgba(0,229,176,0.08);
 }
-.info-btn:hover{color:var(--accent); border-color:var(--accent);}
+.info-btn:hover{background:var(--accent); color:#0D1424; border-color:var(--accent); transform:scale(1.1); box-shadow:0 0 0 4px rgba(0,229,176,0.16);}
 .tooltip{
   position:absolute; right:0; top:calc(100% + 6px); width:260px; background:var(--bg-alt);
   border:1px solid var(--border); border-radius:10px; padding:12px; font-size:12px; color:var(--text-dim);
