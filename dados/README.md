@@ -6,6 +6,14 @@ os blocos `candidatos`, `votosMunicipio`, `votosBairro`, `vencedorBairro`, `resu
 
 **Escopo do painel: só Deputado Estadual.** Não inclui Governador, Vice, Senador nem Deputado Federal.
 
+**Cobertura de bairros de Maceió: 100% desde 2026-09-02.** Maceió tem exatamente 5 zonas eleitorais (1ª, 2ª, 3ª, 33ª e
+54ª — confirmado varrendo `votacao_secao_2022_AL.csv`). Antes só as zonas 1ª/2ª/3ª estavam mapeadas (39 bairros); as
+zonas 33ª/54ª (12 bairros: Tabuleiro do Martins, Clima Bom I/II, Cidade Universitária, Benedito Bentes/I/II,
+Petrópolis, Antares, Santos Dumont, Santa Lúcia, Santa Amélia) foram adicionadas cruzando
+`mapeamento_bairros_zonas_33_54.xlsx` com `votacao_secao_2022_AL.csv` — ver [`scripts/build-zonas-33-54.ps1`](../scripts/build-zonas-33-54.ps1).
+Resultado: `votosBairro` foi de 6.153 para 8.284 linhas, `vencedorBairro` de 39 para 51 bairros, sem nenhuma
+sobreposição de nome de bairro entre as duas fontes.
+
 ## Onde estão as bases originais
 
 Nenhuma base fica neste repositório (são grandes/binárias demais para versionar em git). Estão em:
@@ -14,10 +22,12 @@ Nenhuma base fica neste repositório (são grandes/binárias demais para version
 
 | Arquivo | Conteúdo | Uso |
 |---|---|---|
-| `base_eleitoral_AL_2022_deputado_estadual_1.xlsx` | **Planilha-fonte completa** (13 abas) já com todo o processamento feito: candidatos, votos por município, votos por bairro em Maceió, vencedor por bairro, resumo por partido etc. | **Fonte principal** — usar `scripts/build-painel-data-from-xlsx.ps1` |
+| `base_eleitoral_AL_2022_deputado_estadual_1.xlsx` | **Planilha-fonte completa** (13 abas) já com todo o processamento feito: candidatos, votos por município, votos por bairro em Maceió (zonas 1ª/2ª/3ª), vencedor por bairro, resumo por partido etc. | Fonte principal — usar `scripts/build-painel-data-from-xlsx.ps1` |
 | `consulta_cand_2022_AL.csv` | Portal de Dados Abertos do TSE — cadastro de candidatos (bruto) | Fonte alternativa/atualização (`scripts/build-painel-data.ps1`), cobre só `candidatos`/`votosMunicipio`/`resumoPartido`/`municipios` |
 | `votacao_candidato_munzona_2022_AL.csv` | TSE — votação por candidato, por município/zona (bruto) | idem acima |
-| `votacao_secao_2022_AL.csv` | TSE — votação por seção, com nome/endereço do local de votação (bruto, 88MB) | Só seria necessário para remontar `votosBairro`/`vencedorBairro` do zero a partir do bruto — hoje não é mais necessário, ver abaixo |
+| `votacao_secao_2022_AL.csv` | TSE — votação por seção, com nome/endereço do local de votação (bruto, 88MB) | Usado para calcular os votos por bairro das zonas 33ª/54ª (ver abaixo) |
+| `tre-al-eleicoes-2022-zona-locais-votacao-secao.pdf` | Relatório oficial do TRE-AL — seção → local de votação → endereço, todas as zonas do estado (316 páginas) | Fonte bruta do mapeamento de bairro; documento original em PDF |
+| `mapeamento_bairros_zonas_33_54.xlsx` | Extração já processada do PDF acima, só para as zonas 33ª (Tabuleiro do Martins/Clima Bom I/II) e 54ª (Benedito Bentes, Cidade Universitária, Petrópolis, Antares, Santos Dumont, Santa Lúcia, Santa Amélia): Zona, Seção, Local, Endereço, Bairro | Usado (2026-09-02) para completar a cobertura de bairros de Maceió — validado 100% (64/64 combinações local+endereço conferidas contra o PDF bruto) |
 
 ## A planilha xlsx é a fonte de verdade
 
