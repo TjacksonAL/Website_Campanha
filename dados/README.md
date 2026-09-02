@@ -12,7 +12,14 @@ zonas 33ª/54ª (12 bairros: Tabuleiro do Martins, Clima Bom I/II, Cidade Univer
 Petrópolis, Antares, Santos Dumont, Santa Lúcia, Santa Amélia) foram adicionadas cruzando
 `mapeamento_bairros_zonas_33_54.xlsx` com `votacao_secao_2022_AL.csv` — ver [`scripts/build-zonas-33-54.ps1`](../scripts/build-zonas-33-54.ps1).
 Resultado: `votosBairro` foi de 6.153 para 8.284 linhas, `vencedorBairro` de 39 para 51 bairros, sem nenhuma
-sobreposição de nome de bairro entre as duas fontes.
+sobreposição de nome de bairro entre as duas fontes. **A planilha-fonte `base_eleitoral_AL_2022_deputado_estadual_1.xlsx`
+foi atualizada com essas mesmas linhas** (abas `Votos_por_Bairro_Maceio` e `Vencedor_por_Bairro_Maceio`, via automação
+do Excel), então ela e o painel publicado estão sincronizados. Existe um backup do estado anterior dela em
+`base_eleitoral_AL_2022_deputado_estadual_1.BACKUP-2026-09-02.xlsx`, na mesma pasta.
+
+Nota técnica: esse arquivo está em uma pasta OneDrive com AutoSave — alterações feitas por automação (COM) podem ser
+sincronizadas para a nuvem mesmo sem um `.Save()` explícito ter sido concluído, então sempre faça uma cópia de
+segurança antes de editar esse arquivo por script.
 
 ## Onde estão as bases originais
 

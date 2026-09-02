@@ -83,29 +83,47 @@ function Table-ToArray($rows, $headerRow, $lastRow, $maxCol) {
   return $list
 }
 
+# Le o intervalo real (ref="A4:G43") de uma tabela do Excel, em vez de usar numeros fixos no
+# codigo, que quebram silenciosamente quando a tabela cresce numa atualizacao futura.
+function Get-TableRange($zip, $tableFile) {
+  $txt = Get-EntryText $zip $tableFile
+  $x = [xml]$txt
+  $ref = $x.table.ref
+  $parts = $ref -split ':'
+  $startRow = [int]($parts[0] -replace '[A-Za-z]','')
+  $endRow = [int]($parts[1] -replace '[A-Za-z]','')
+  $endCol = Col-Index ($parts[1] -replace '[0-9]','')
+  return @{ headerRow = $startRow; lastRow = $endRow; maxCol = $endCol }
+}
+
 Write-Host "Lendo Candidatos (sheet5)..."
+$rngCand = Get-TableRange $zip "xl/tables/table3.xml"
 $rowsCand = Read-Sheet $zip "xl/worksheets/sheet5.xml" $shared
-$candRows = Table-ToArray $rowsCand 3 285 14
+$candRows = Table-ToArray $rowsCand $rngCand.headerRow $rngCand.lastRow $rngCand.maxCol
 Write-Host "linhas candidatos: $($candRows.Count)"
 
 Write-Host "Lendo Votos_por_Municipio (sheet6)..."
+$rngVM = Get-TableRange $zip "xl/tables/table4.xml"
 $rowsVM = Read-Sheet $zip "xl/worksheets/sheet6.xml" $shared
-$vmRows = Table-ToArray $rowsVM 3 10643 6
+$vmRows = Table-ToArray $rowsVM $rngVM.headerRow $rngVM.lastRow $rngVM.maxCol
 Write-Host "linhas votosMunicipio: $($vmRows.Count)"
 
 Write-Host "Lendo Votos_por_Bairro_Maceio (sheet3)..."
+$rngVB = Get-TableRange $zip "xl/tables/table2.xml"
 $rowsVB = Read-Sheet $zip "xl/worksheets/sheet3.xml" $shared
-$vbRows = Table-ToArray $rowsVB 4 6157 4
+$vbRows = Table-ToArray $rowsVB $rngVB.headerRow $rngVB.lastRow $rngVB.maxCol
 Write-Host "linhas votosBairro: $($vbRows.Count)"
 
 Write-Host "Lendo Vencedor_por_Bairro_Maceio (sheet2)..."
+$rngVEB = Get-TableRange $zip "xl/tables/table1.xml"
 $rowsVEB = Read-Sheet $zip "xl/worksheets/sheet2.xml" $shared
-$vebRows = Table-ToArray $rowsVEB 4 43 7
+$vebRows = Table-ToArray $rowsVEB $rngVEB.headerRow $rngVEB.lastRow $rngVEB.maxCol
 Write-Host "linhas vencedorBairro: $($vebRows.Count)"
 
 Write-Host "Lendo Resumo_Partidos_Estado (sheet10)..."
+$rngRP = Get-TableRange $zip "xl/tables/table8.xml"
 $rowsRP = Read-Sheet $zip "xl/worksheets/sheet10.xml" $shared
-$rpRows = Table-ToArray $rowsRP 3 22 5
+$rpRows = Table-ToArray $rowsRP $rngRP.headerRow $rngRP.lastRow $rngRP.maxCol
 Write-Host "linhas resumoPartido: $($rpRows.Count)"
 
 $zip.Dispose()
