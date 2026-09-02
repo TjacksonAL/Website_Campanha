@@ -537,6 +537,8 @@ document.getElementById('bannerCloseObjetivo').addEventListener('click',()=>docu
    position:absolute dentro do card. Isso evita um problema de composição em que o
    fundo do tooltip não era pintado por cima do <canvas> do gráfico em alguns
    navegadores, mesmo com z-index mais alto. */
+const canHoverInfo = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+let openInfoTooltip = null;
 document.querySelectorAll('.info-btn').forEach(btn=>{
   const tip = btn.querySelector('.tooltip');
   if(!tip) return;
@@ -554,12 +556,38 @@ document.querySelectorAll('.info-btn').forEach(btn=>{
     tip.style.left = left + 'px';
     tip.style.top = (r.bottom + 6) + 'px';
   }
-  function hide(){ tip.classList.remove('tooltip-open'); }
-  btn.addEventListener('mouseenter', place);
-  btn.addEventListener('mouseleave', hide);
-  btn.addEventListener('focus', place);
-  btn.addEventListener('blur', hide);
+  function show(){ place(); openInfoTooltip = tip; }
+  function hide(){ tip.classList.remove('tooltip-open'); if(openInfoTooltip===tip) openInfoTooltip=null; }
+  if(canHoverInfo){
+    /* Desktop (mouse): comportamento original, hover abre e fecha. */
+    btn.addEventListener('mouseenter', show);
+    btn.addEventListener('mouseleave', hide);
+    btn.addEventListener('focus', show);
+    btn.addEventListener('blur', hide);
+  } else {
+    /* Toque (celular/tablet): tocar alterna aberto/fechado; tocar fora ou rolar a tela fecha. */
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const wasOpen = tip.classList.contains('tooltip-open');
+      if(openInfoTooltip && openInfoTooltip!==tip) openInfoTooltip.classList.remove('tooltip-open');
+      if(wasOpen){ hide(); } else { show(); }
+    });
+  }
 });
+if(!canHoverInfo){
+  document.addEventListener('click', (e)=>{
+    if(openInfoTooltip && !openInfoTooltip.contains(e.target)){
+      openInfoTooltip.classList.remove('tooltip-open');
+      openInfoTooltip = null;
+    }
+  });
+  window.addEventListener('scroll', ()=>{
+    if(openInfoTooltip){
+      openInfoTooltip.classList.remove('tooltip-open');
+      openInfoTooltip = null;
+    }
+  }, {passive:true});
+}
 
 /* ================= TOAST ================= */
 function toast(msg){
