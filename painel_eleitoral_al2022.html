@@ -309,6 +309,13 @@ footer{max-width:1360px; margin:30px auto 0; padding:20px 24px; border-top:1px s
   </div>
 </header>
 
+<div class="banner" id="bannerWrapObjetivo">
+  <div class="banner-inner info">
+    <span><b>Objetivo:</b> analisar o comportamento histórico do eleitorado alagoano nas eleições para deputado estadual — por partido, candidato e região — para embasar as decisões estratégicas da campanha.</span>
+    <button class="banner-close" id="bannerCloseObjetivo">✕</button>
+  </div>
+</div>
+
 <div class="banner" id="bannerWrap0">
   <div class="banner-inner info">
     <span><b>Base de dados:</b> os dados utilizados para criação das análises são referentes à eleição de 2022. Servirão como base para tomadas de decisões.</span>
@@ -520,6 +527,7 @@ setupMenu('dlBtn','dlMenu'); setupMenu('toolsBtn','toolsMenu');
 document.addEventListener('click',()=>document.querySelectorAll('.menu-pop').forEach(m=>m.classList.remove('open')));
 document.getElementById('bannerClose').addEventListener('click',()=>document.getElementById('bannerWrap').style.display='none');
 document.getElementById('bannerClose0').addEventListener('click',()=>document.getElementById('bannerWrap0').style.display='none');
+document.getElementById('bannerCloseObjetivo').addEventListener('click',()=>document.getElementById('bannerWrapObjetivo').style.display='none');
 
 /* ================= TOAST ================= */
 function toast(msg){
