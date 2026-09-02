@@ -205,15 +205,16 @@ main{max-width:1360px; margin:0 auto; padding:22px 24px 0;}
 }
 .info-btn:hover{background:var(--accent); color:#0D1424; border-color:var(--accent); transform:scale(1.1); box-shadow:0 0 0 4px rgba(0,229,176,0.16);}
 .tooltip{
-  position:absolute; right:0; top:calc(100% + 6px); width:260px; background:var(--bg-alt);
+  position:absolute; right:0; top:calc(100% + 6px); width:260px; background:var(--bg-alt); background-color:var(--bg-alt);
   border:1px solid var(--border); border-radius:10px; padding:12px; font-size:12px; color:var(--text-dim);
-  line-height:1.5; box-shadow:var(--shadow); display:none; z-index:40; text-align:left; font-weight:400;
+  line-height:1.5; box-shadow:var(--shadow); display:none; z-index:1000; text-align:left; font-weight:400;
+  isolation:isolate; transform:translateZ(0); will-change:transform;
 }
 .info-btn:hover .tooltip{display:block;}
 .tooltip b{color:var(--text); display:block; margin-bottom:4px; font-size:11.5px;}
 canvas{max-width:100%;}
 .chart-box{position:relative; width:100%;}
-.chart-box canvas{position:absolute; inset:0; width:100% !important; height:100% !important;}
+.chart-box canvas{position:absolute; inset:0; width:100% !important; height:100% !important; z-index:0;}
 
 .tabbar{display:flex; gap:4px; background:var(--surface-2); padding:4px; border-radius:9px; margin-bottom:12px; width:fit-content;}
 .tabbar button{ padding:6px 12px; border-radius:6px; font-size:12px; background:none; border:none; color:var(--text-dim); }
