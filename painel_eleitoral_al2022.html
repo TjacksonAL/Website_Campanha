@@ -666,7 +666,11 @@ document.querySelectorAll('#situacaoChips .chip').forEach(c=>c.addEventListener(
   render();
 }));
 
-document.getElementById('fCandidato').addEventListener('input', (e)=>{ state.busca=e.target.value.trim().toLowerCase(); render(); });
+function debounce(fn, wait){
+  let t;
+  return function(...args){ clearTimeout(t); t=setTimeout(()=>fn.apply(this,args), wait); };
+}
+document.getElementById('fCandidato').addEventListener('input', debounce((e)=>{ state.busca=e.target.value.trim().toLowerCase(); render(); }, 250));
 
 document.getElementById('resetFilters').addEventListener('click',()=>{
   state.municipio='TODOS'; state.partidos.clear(); state.busca='';
@@ -942,13 +946,21 @@ function renderBairroDetailTable(){
     const arrow=th.querySelector('.arrow');
     arrow.textContent = th.dataset.k===sortKeyBD ? (sortDirBD===1?'▲':'▼') : '';
   });
-  document.getElementById('tblBairroDetBody').innerHTML = rows.map(r=>`
+  const ROW_LIMIT=500;
+  const totalRows=rows.length;
+  const truncated=totalRows>ROW_LIMIT;
+  const shown=truncated ? rows.slice(0,ROW_LIMIT) : rows;
+  let html = shown.map(r=>`
     <tr>
       <td>${titleCase(r.bairro)}</td>
       <td>${escapeHtml(r.candidato)}</td>
       <td><span class="tag">${escapeHtml(r.partido)}</span></td>
       <td class="mono">${fmt(r.votos)}</td>
     </tr>`).join('') || `<tr><td colspan="4" style="text-align:center; padding:20px; color:var(--text-faint);">Nenhum resultado para os filtros atuais.</td></tr>`;
+  if(truncated){
+    html += `<tr><td colspan="4" style="text-align:center; padding:12px; color:var(--text-faint); font-size:12px;">Mostrando os ${ROW_LIMIT} maiores de ${fmt(totalRows)} resultados — selecione um bairro ou busque um candidato para refinar.</td></tr>`;
+  }
+  document.getElementById('tblBairroDetBody').innerHTML = html;
 }
 document.querySelectorAll('#tblBairroDet th[data-k]').forEach(th=>th.addEventListener('click',()=>{
   const k=th.dataset.k;

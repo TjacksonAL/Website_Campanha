@@ -61,21 +61,6 @@ JS do painel usa como chave (`DATA.candidatos[String(sq)]`). O script reconstró
 do PV com o mesmo nome de urna e número, SQs `20001612356` e `20001728453`) — isso já existia nos dados originais e
 não afeta os totais por partido, só a atribuição individual de voto entre esses dois SQs específicos.
 
-## Bases de 2026 (candidaturas)
-
-Em `Banco de dados\Dados 2026\` (fora do repo, mesmo padrão das demais) estão os cadastros de candidatos do TSE
-para a eleição de 2026 (candidaturas registradas, pleito só em outubro/2026 — ainda não há dados de votação):
-
-| Arquivo | Conteúdo |
-|---|---|
-| `consulta_cand_2026_AL.csv` | Cadastro de candidatos (mesma estrutura de `consulta_cand_2022_AL.csv`) — 141 candidatos a Deputado Estadual |
-| `consulta_cand_complementar_2026_AL.csv` | Dados complementares: situação de julgamento do registro, teto de gastos de campanha, etc. |
-| `rede_social_candidato_2026_AL.csv` | Redes sociais declaradas por candidato |
-
-Análise comparativa 2022 vs 2026 (composição partidária, candidatos recorrentes via CPF, perfil demográfico) feita
-em 2026-09-04, com foco adicional na candidata Walkiria Ferreira (PL) — ver `Analise_2022_2026_Walkiria_Ferreira.pdf`
-na pasta `Eleição` (não versionado no repo, é um relatório para a campanha, não dado-fonte nem código).
-
 ## Fluxo de atualização
 
 Quando o Thulio enviar dados atualizados:
