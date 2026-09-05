@@ -475,7 +475,7 @@ footer{max-width:1360px; margin:30px auto 0; padding:20px 24px; border-top:1px s
         <div class="info-btn">i<div class="tooltip"><b>Como ler</b>Votos de cada candidato em cada bairro coberto. Respeita os filtros de partido e busca do topo da página. Clique nos cabeçalhos para ordenar.</div></div>
       </div>
     </div>
-    <div style="overflow-x:auto; max-height:480px; overflow-y:auto;">
+    <div id="tblBairroDetWrap" style="overflow-x:auto; max-height:480px; overflow-y:auto;">
       <table id="tblBairroDet">
         <thead><tr>
           <th data-k="bairro">Bairro <span class="arrow"></span></th>
@@ -961,6 +961,7 @@ function renderBairroDetailTable(){
     html += `<tr><td colspan="4" style="text-align:center; padding:12px; color:var(--text-faint); font-size:12px;">Mostrando os ${ROW_LIMIT} maiores de ${fmt(totalRows)} resultados — selecione um bairro ou busque um candidato para refinar.</td></tr>`;
   }
   document.getElementById('tblBairroDetBody').innerHTML = html;
+  document.getElementById('tblBairroDetWrap').scrollLeft = 0;
 }
 document.querySelectorAll('#tblBairroDet th[data-k]').forEach(th=>th.addEventListener('click',()=>{
   const k=th.dataset.k;
