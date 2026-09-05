@@ -22,6 +22,7 @@ html[data-theme="light"]{
   --shadow: 0 8px 24px rgba(20,30,60,.08);
 }
 *{box-sizing:border-box; margin:0; padding:0;}
+html{overflow-x:hidden; width:100%;}
 body{
   background:var(--bg); color:var(--text);
   font-family:'Inter',system-ui,sans-serif;
@@ -29,6 +30,7 @@ body{
   transition:background .25s ease, color .25s ease;
   padding-bottom:60px;
   overflow-x:hidden;
+  width:100%;
 }
 .mono{ font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums; }
 .display{ font-family:'Space Grotesk',sans-serif; }
@@ -188,6 +190,7 @@ main{max-width:1360px; margin:0 auto; padding:22px 24px 0;}
 .card{
   background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px;
   display:flex; flex-direction:column; position:relative; z-index:0;
+  overflow:hidden; min-width:0; width:100%;
 }
 .card-head{display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; margin-bottom:14px; gap:10px;}
 .card-head h3{font-family:'Space Grotesk'; font-size:14.5px; font-weight:600;}
@@ -455,7 +458,7 @@ footer{max-width:1360px; margin:30px auto 0; padding:20px 24px; border-top:1px s
     </div>
     <div class="card">
       <div class="card-head"><h3>Vencedor por bairro</h3><div class="info-btn">i<div class="tooltip"><b>Como ler</b>Candidato e partido mais votados em cada bairro coberto pela fonte oficial. Clique nos cabeçalhos para ordenar.</div></div></div>
-      <div style="overflow-x:auto; max-height:340px; overflow-y:auto;">
+      <div id="tblVencedorBairroWrap" style="overflow-x:auto; max-height:340px; overflow-y:auto; width:100%;">
         <table id="tblVencedorBairro">
           <thead><tr>
             <th data-k="bairro">Bairro <span class="arrow"></span></th>
@@ -480,7 +483,7 @@ footer{max-width:1360px; margin:30px auto 0; padding:20px 24px; border-top:1px s
         <div class="info-btn">i<div class="tooltip"><b>Como ler</b>Votos de cada candidato em cada bairro coberto. Respeita os filtros de partido e busca do topo da página. Clique nos cabeçalhos para ordenar.</div></div>
       </div>
     </div>
-    <div id="tblBairroDetWrap" style="overflow-x:auto; max-height:480px; overflow-y:auto;">
+    <div id="tblBairroDetWrap" style="overflow-x:auto; max-height:480px; overflow-y:auto; width:100%;">
       <table id="tblBairroDet">
         <thead><tr>
           <th data-k="bairro">Bairro <span class="arrow"></span></th>
